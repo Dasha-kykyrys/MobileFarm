@@ -43,6 +43,7 @@ public class DataBase
             startCrops.Add(Player.getEmptyItem());
             startCrops.Add(Player.getEmptyItem());
             startCrops.Add(Player.getEmptyItem());
+            
             startCrops.Add(Player.getEmptyItem());
             startCrops.Add(Player.getEmptyItem());
             startCrops.Add(Player.getEmptyItem());
@@ -74,8 +75,8 @@ public class DataBase
         {
             List<Item> startItems = new List<Item>();
 
-            startItems.Add(new Item("plow", "Tools/Plow", 0, Item.TYPEPLOW, 0, 0, 0f)); 
-            startItems.Add(new Item("sholve", "Tools/Sholve", 0, Item.TYPESHOLVE, 0, 0, 0f));
+            startItems.Add(Player.getEmptyItem()); 
+            startItems.Add(Player.getEmptyItem());
             startItems.Add(Player.getEmptyItem());
             startItems.Add(Player.getEmptyItem());
             startItems.Add(Player.getEmptyItem());

@@ -27,10 +27,7 @@ public class Order : MonoBehaviour
 
         GetComponentInChildren<Button>().onClick.AddListener(delegate { completeOrder(); });
 
-        if (Player.lvl > 0) allItems.Add(new Item("carrot", "Food/carrot", 1, Item.TYPEPFOOD, 10, 1, 5f));
-        if (Player.lvl > 1) allItems.Add(new Item("beet", "Food/beet", 1, Item.TYPEPFOOD, 25, 2, 10f));
-        if (Player.lvl > 2) allItems.Add(new Item("pumpkin", "Food/pumpkin", 1, Item.TYPEPFOOD, 35, 3, 20f));
-        if (Player.lvl > 3) allItems.Add(new Item("eggplant", "Food/eggplant", 1, Item.TYPEPFOOD, 40, 4, 30f));
+        GenerateListProducts();
 
         createOrder();
     }
@@ -123,4 +120,36 @@ public class Order : MonoBehaviour
 
         return 4;
     }
+
+    private void GenerateListProducts()
+    {   
+        if (Player.lvl > 0) allItems.Add(new Item("carrot", "Food/carrot", 1, Item.TYPEPFOOD, 10, 1, 5f, 0));
+        if (Player.lvl > 1) allItems.Add(new Item("beet", "Food/beet", 1, Item.TYPEPFOOD, 25, 2, 10f, 0));
+        if (Player.lvl > 2) allItems.Add(new Item("pumpkin", "Food/pumpkin", 1, Item.TYPEPFOOD, 35, 3, 20f, 0));
+        if (Player.lvl > 3) allItems.Add(new Item("eggplant", "Food/eggplant", 1, Item.TYPEPFOOD, 40, 4, 30f, 0));
+    }
+
+    public void UpdateOrderAndReward()
+    {   
+        for (int i = 0; i < required.Count; i++)
+        {
+            productImages[i + 1].sprite = Resources.Load<Sprite>("Food/empty");
+            productCount[i + 2].text = "";
+        } 
+        allItems.Clear();
+        Player.currentOrders[id].Clear();
+        GenerateListProducts();
+        generateReward();
+        for (int i = 0; i < generateCount(); i++)
+        {
+            creatItemForOrder();
+        }
+        for (int i = 0; i < required.Count; i++)
+        {
+            productImages[i + 1].sprite = Resources.Load<Sprite>(required[i].imgUrl);
+            productCount[i + 2].text = "x" + required[i].count.ToString();
+        }    
+        Player.currentOrders[id] = required;
+    }
+
 }

@@ -20,8 +20,7 @@ public class Crop : MonoBehaviour
     private int step = 0;
     private float weedSpawnChance = 0.3f; 
     private float weedSpawnTime = 3f;
-    private float witheredTime = 25f;
-    private Timer timer;  
+    private float witheredTime = 25f; 
 
     private GameObject player;
     private bool readyForAction;
@@ -72,6 +71,7 @@ public class Crop : MonoBehaviour
                 {
                     seedSpriteRenderer.sprite = Resources.Load<Sprite>("Food/seeds");
                     timeGrowStarted = System.DateTime.Now.ToBinary().ToString();
+                    Player.DeletPlow(item);
                     StartCoroutine(grow());
                     step = STEP_GROWS;
                 }
@@ -90,6 +90,7 @@ public class Crop : MonoBehaviour
                 if (item.type == Item.TYPEPLOW)
                 {
                     seedSpriteRenderer.sprite = Resources.Load<Sprite>("Food/empty");
+                    Player.DeletPlow(item);
                     step = STEP_EMPTY;
                 }
             }

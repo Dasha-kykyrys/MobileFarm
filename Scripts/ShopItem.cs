@@ -25,10 +25,29 @@ public class ShopItem : MonoBehaviour
     {
         if (Player.money >= item.price)
         {
-            Player.checkIfItemExists(item);
-            Player.money -= item.price;
-            moneyText.text = Player.money + "$";
+            if(item.name == "plow")
+            {
+            for (int i =0; i < Player.items.Count; i++)
+            {
+                if(Player.items[i].name == "empty")
+                {
+                    Player.addItemToInventory(item);
+                    Player.money -= item.price;
+                    moneyText.text = Player.money + "$";
+                    break;
+                }
+            }
+            }
+            else
+            {
+                Player.checkIfItemExists(item);
+                Player.money -= item.price;
+                moneyText.text = Player.money + "$";
+            }
+
         }
+        else StartCoroutine(ShowNoMoneyText());
+
     }
 
     public void UpdateItem(Item item, Text moneyText)
@@ -53,6 +72,13 @@ public class ShopItem : MonoBehaviour
             GetComponent<Button>().onClick.RemoveAllListeners();
             GetComponent<Button>().onClick.AddListener(delegate { Buy(item); });
         }
+    }
+
+    private IEnumerator ShowNoMoneyText()
+    {
+        Shop.ReasonText.enabled = true;
+        yield return new WaitForSeconds(1.2f); 
+        Shop.ReasonText.enabled = false;
     }
  
     

@@ -13,10 +13,12 @@ public class Player : MonoBehaviour
 
     private long offlineTime = 0;
     public List<Crop> crops;
-    private Vector3 targetPosition = new Vector3(0f, 0f, 0f); // Example target position
+    private Vector3 targetPosition = new Vector3(0f, 0f, 0f); 
+
 
     void Start()
     {
+         
         currentOrders.Add(new List<Item>());
         currentOrders.Add(new List<Item>());
         currentOrders.Add(new List<Item>());
@@ -101,12 +103,12 @@ public class Player : MonoBehaviour
 
     public static Item getHandItem()
     {
-        return new Item(items[0].name, items[0].imgUrl, items[0].count, items[0].type, items[0].price, items[0].lvlWhenUnlock, items[0].timeToGrow);
+        return new Item(items[0].name, items[0].imgUrl, items[0].count, items[0].type, items[0].price, items[0].lvlWhenUnlock, items[0].timeToGrow, items[0].durability);
     }
 
     public static Item getEmptyItem()
     {
-        return new Item("empty", "Food/empty", 0, 0, 0, 0, 0);
+        return new Item("empty", "Food/empty", 0, 0, 0, 0, 0, 0);
     }
 
     public static void removeItem()
@@ -139,7 +141,7 @@ public class Player : MonoBehaviour
         }
     }
 
-    private static void addItemToInventory(Item item)
+    public static void addItemToInventory(Item item)
     {
         bool added = false;
         for (int i =0; i < items.Count; i++)
@@ -195,5 +197,25 @@ public class Player : MonoBehaviour
         transform.position = targetPosition;
     }
 
+    public static void DeletPlow(Item item)
+    {
+        items[0].durability -= 1;
+        if (items[0].durability == 6)
+        {
+            items[0].imgUrl = "Tools/Plow_2";
+        }
+        else if (items[0].durability == 3)
+        {
+            items[0].imgUrl = "Tools/Plow_3";
+        }
+ 
+        if (items[0].durability == 0)
+        {
+                
+            items[0] = getEmptyItem();
+            
+        }
+        
+    }
 
 }
